@@ -6,7 +6,7 @@
         <title>内容</title>
         <link rel="stylesheet" type="text/css" href="{% static 'board/css/style.css' %}" />
     </head>
-    <boay>
+    <body>
             <h1>{{message}}</h1>
         <table>
             <tr><th>カテゴリー</th><td>{{obj.category}}</td></tr>
@@ -17,18 +17,43 @@
             <tr><th>購読数</th><td>{{obj.read_cnt}}</td></tr>
         </table>
         <table>
-            <form action="{% url 'update' obj.id %}" method="go">
+            <form action="{% url 'update_main' obj.id %}" method="post">
                 {% csrf_token %}
                 <tr>
                     <td><input type="submit" value="変更"></td>
-                </tr>>
+                </tr>
             </form>
             <form action="{% url 'delete' obj.id %}" method="go">
                 {% csrf_token %}
                 <tr>
                     <td><input type="submit" value="削除"></td>
-                </tr>>
+                </tr>
             </form>
+            <tr>
+                <td>
+                    {% if goodFlg == 0 %}
+                        <input type="button" id="good" onClick="javascript:goodUpdate()" value="いいね！">
+                    {% else %}
+                        <input type="button" id="good" onClick="javascript:goodUpdate()" value="いいね済" disabled>
+                    {% endif %}
+                </td>
+            </tr>    
         </table>    
-    </boay>
+        <input type="hidden" id="objId" value="{{ obj.id }}">
+        <form name="goodUpdate" >{% csrf_token %}</form>
+    </body>
+    <script type="text/javascript">
+        var button = document.querySelector("#good")
+        button.addEventListener('click', goodUpdate);
+            function goodUpdate(){
+                var id = document.getElementById("objId").value;
+                //var form = document.getElementById("goodUpdate");
+                var form = document.goodUpdate;
+                //var url = document.getElementById("url").value;
+                var url = "/board/goodUpdate/";
+                form.action = url+id;
+                form.method = "post";
+                form.submit();      
+            }   
+    </script>
 </html>

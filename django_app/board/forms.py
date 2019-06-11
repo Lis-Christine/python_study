@@ -16,5 +16,6 @@ class BoardForm(forms.Form):
         ('旅行', '旅行'),
     ]
     category = forms.ChoiceField(choices=data)
-    title = forms.CharField(max_length=100)
-    main_text = forms.CharField(max_length=500, widget=forms.Textarea)
+    title = forms.CharField(max_length=100, initial="",)
+    main_text = forms.CharField(max_length=500, widget=forms.Textarea, initial="",)
+

@@ -8,7 +8,7 @@
     </head>
     <body>
         <table>
-            <form caction="{% url 'update' id %}" method="post">
+            <form action="{% url 'update' id %}" method="post">
                 {% csrf_token %}
                 {{ form.as_table}}
                 <tr>
@@ -17,4 +17,6 @@
                 </tr>
             </form>
         </table>
+        <input type="hidden" id="objId" value="{{ update_main }}">
+        <input type="hidden" id="objId" value="{{ data }}">
     </body>
